@@ -1,0 +1,154 @@
+/* Background setup */
+.landing-container {
+  position: relative;
+  min-height: 100vh;
+  background: url("/assets/library-bg.png") no-repeat center center/cover;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Dark overlay */
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Hero Section */
+.hero .title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.hero .title span {
+  background: linear-gradient(90deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  max-width: 800px;
+  margin: 20px auto;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.login-btn,
+.explore-btn {
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-btn {
+  background: linear-gradient(90deg, #9333ea, #ec4899);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #7e22ce, #db2777);
+}
+
+.explore-btn {
+  background: transparent;
+  border: 2px solid #ec4899;
+  color: #ec4899;
+}
+
+.explore-btn:hover {
+  background: #ec4899;
+  color: white;
+}
+
+/* About Section */
+.about-section {
+  padding: 80px 20px;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ec4899;
+}
+
+.about-section p {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #ddd;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 20px;
+  background: rgba(10, 10, 10, 0.9);
+  text-align: center;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #a855f7;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+  font-size: 40px;
+  color: #ec4899;
+  margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+  padding: 30px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.85);
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.footer-icon {
+  color: #a855f7;
+  margin-bottom: 10px;
+}
