@@ -1,9 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom"; // ✅ Added this line
 import { BookOpen, Search, Calendar, Users, TrendingUp, LogIn } from "lucide-react";
 import "../styles/LandingPage.css";
 
 export default function LandingPage() {
+  const navigate = useNavigate(); // ✅ Hook to navigate between pages
+
   const features = [
     {
       icon: <Search className="icon" />,
@@ -40,19 +43,26 @@ export default function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="title">Welcome to <span>Bibliosphere</span></h1>
+          <h1 className="title">
+            <span>Bibliosphere</span>
+          </h1>
           <p className="subtitle">
             Smart Library Management System that simplifies, digitalizes, and
             automates book management and user operations.
           </p>
+
           <div className="buttons">
-            <button className="login-btn">
+            {/* ✅ Updated login button to navigate */}
+            <button className="login-btn" onClick={() => navigate("/login")}>
               <LogIn className="login-icon" /> Login
             </button>
+
             <button
               className="explore-btn"
               onClick={() => {
-                document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("about")
+                  .scrollIntoView({ behavior: "smooth" });
               }}
             >
               Explore Features ↓
