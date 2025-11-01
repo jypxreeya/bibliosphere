@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function StudentDashboard() {
   const [value, setValue] = useState(new Date());
   const [quizIndex, setQuizIndex] = useState(0);
+  
   const navigate = useNavigate();
 
   
@@ -63,7 +64,10 @@ export default function StudentDashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="big-box">🔍 Check Availability</div>
+          <div className="big-box" onClick={() => navigate("/check-availability")}>
+  🔍 Check Availability
+</div>
+
           <div className="big-box">📘 Borrowed Books</div>
           <div className="big-box">👩‍💼 Author Categorization</div>
           <div className="big-box">🎓 Your Course</div>

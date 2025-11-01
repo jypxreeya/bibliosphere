@@ -4,6 +4,9 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentProfile from "./pages/StudentProfile";
+import CheckAvailability from "./pages/CheckAvailability";
+
+
 
 function App() {
   return (
@@ -20,9 +23,13 @@ function App() {
 
         {/* 👤 Student Profile Page */}
         <Route path="/student-profile" element={<StudentProfile />} />
+         <Route path="/check-availability" element={<CheckAvailability />} />
+
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+
