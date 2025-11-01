@@ -3,19 +3,23 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard";
+import StudentProfile from "./pages/StudentProfile";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Landing Page (Home) */}
+        {/* 🌟 Landing Page */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* Login Page */}
+        {/* 🔐 Login Page */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Student Dashboard */}
+        {/* 🎓 Student Dashboard */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
+
+        {/* 👤 Student Profile Page */}
+        <Route path="/student-profile" element={<StudentProfile />} />
       </Routes>
     </Router>
   );

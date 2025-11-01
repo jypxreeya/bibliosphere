@@ -3,11 +3,14 @@ import { motion } from "framer-motion";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/StudentDashboard.css";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentDashboard() {
   const [value, setValue] = useState(new Date());
   const [quizIndex, setQuizIndex] = useState(0);
+  const navigate = useNavigate();
 
+  
   const quizzes = [
     { q: "Who wrote 'Pride and Prejudice'?", a: "Jane Austen" },
     { q: "What is the capital of Japan?", a: "Tokyo" },
@@ -36,6 +39,12 @@ export default function StudentDashboard() {
         <h1 className="logo">📚 Bibliosphere</h1>
         <ul className="menu">
           <li className="menu-item active">🏠 Home</li>
+          <li
+            className="menu-item"
+            onClick={() => navigate("/student-profile")}
+          >
+            👤 Profile
+          </li>
           <li className="menu-item">📊 Analytics</li>
           <li className="menu-item">🕒 Attendance</li>
           <li className="menu-item logout">🚪 Sign Out</li>
