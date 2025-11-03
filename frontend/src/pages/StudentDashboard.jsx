@@ -69,8 +69,18 @@ export default function StudentDashboard() {
 </div>
 
           <div className="big-box">📘 Borrowed Books</div>
-          <div className="big-box">👩‍💼 Author Categorization</div>
-          <div className="big-box">🎓 Your Course</div>
+          <div
+  className="big-box"
+  onClick={() => navigate("/author-categorization")}
+  style={{ cursor: "pointer" }}
+>
+  👩‍💼 Author Categorization
+</div>
+      <div className="big-box" onClick={() => navigate("/mycourse")}>
+  📚 My Course
+</div>
+
+          
         </motion.div>
 
         <div className="right-section">

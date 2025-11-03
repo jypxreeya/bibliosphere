@@ -5,7 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentProfile from "./pages/StudentProfile";
 import CheckAvailability from "./pages/CheckAvailability";
-
+import AuthorCategorization from "./pages/AuthorCategorization";
+import MyCourse from "./pages/MyCourse";
 
 
 function App() {
@@ -23,7 +24,14 @@ function App() {
 
         {/* 👤 Student Profile Page */}
         <Route path="/student-profile" element={<StudentProfile />} />
+
+
          <Route path="/check-availability" element={<CheckAvailability />} />
+
+         
+        <Route path="/author-categorization" element={<AuthorCategorization />} />
+
+        <Route path="/mycourse" element={<MyCourse />} /> 
 
       </Routes>
     </Router>

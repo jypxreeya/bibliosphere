@@ -1,0 +1,88 @@
+.author-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  color: #333;
+}
+
+.author-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1e88e5;
+}
+
+.search-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-section input {
+  padding: 0.8rem 1rem;
+  border: 2px solid #90caf9;
+  border-radius: 8px;
+  width: 300px;
+  font-size: 1rem;
+}
+
+.search-section button {
+  padding: 0.8rem 1.2rem;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-section button:hover {
+  background-color: #1565c0;
+}
+
+.loading {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.author-results {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.author-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.author-card h2 {
+  color: #6a1b9a;
+  margin-bottom: 0.8rem;
+}
+
+.author-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.author-card li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
+
+.not-available {
+  color: red;
+  font-weight: bold;
+}

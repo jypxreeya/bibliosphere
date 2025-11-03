@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch"; // important for calling OpenLibrary
-
+import authorRoutes from "./routes/authorRoutes.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/authors", authorRoutes);
+
 
 // Route to search for books
 app.get("/api/books", async (req, res) => {
