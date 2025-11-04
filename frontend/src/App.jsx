@@ -7,7 +7,7 @@ import StudentProfile from "./pages/StudentProfile";
 import CheckAvailability from "./pages/CheckAvailability";
 import AuthorCategorization from "./pages/AuthorCategorization";
 import MyCourse from "./pages/MyCourse";
-
+import BorrowedBooks from "./pages/BorrowedBooks"; 
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
         <Route path="/author-categorization" element={<AuthorCategorization />} />
 
         <Route path="/mycourse" element={<MyCourse />} /> 
+        <Route path="/borrowed-books" element={<BorrowedBooks />} />
 
       </Routes>
     </Router>

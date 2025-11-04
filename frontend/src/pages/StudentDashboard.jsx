@@ -67,8 +67,16 @@ export default function StudentDashboard() {
           <div className="big-box" onClick={() => navigate("/check-availability")}>
   🔍 Check Availability
 </div>
+ 
+ <div
+  className="big-box"
+  onClick={() => navigate("/borrowed-books")}
+  style={{ cursor: "pointer" }}
+>
+  🧾 Borrowed Books
+</div>
 
-          <div className="big-box">📘 Borrowed Books</div>
+          
           <div
   className="big-box"
   onClick={() => navigate("/author-categorization")}

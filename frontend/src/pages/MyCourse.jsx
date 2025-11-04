@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import "./MyCourse.css";
+import "../styles/MyCourse.css";
+
 
 const subjects = [
   "Web Technology",

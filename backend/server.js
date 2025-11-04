@@ -1,38 +1,25 @@
 import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
-import fetch from "node-fetch"; // important for calling OpenLibrary
+import dotenv from "dotenv";
+import borrowRoutes from "./routes/borrowRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
+
+dotenv.config();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/authors", authorRoutes);
+// ✅ Connect MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
+// Routes
+app.use("/api/borrow", borrowRoutes);
+app.use("/api/author", authorRoutes);
 
-// Route to search for books
-app.get("/api/books", async (req, res) => {
-  const { title } = req.query; // e.g. /api/books?title=harry+potter
-  if (!title) {
-    return res.status(400).json({ error: "Please provide a book title" });
-  }
-
-  try {
-    const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(title)}`);
-    const data = await response.json();
-
-    // Simplify the data before sending it back
-    const books = data.docs.slice(0, 5).map(book => ({
-      title: book.title,
-      author: book.author_name ? book.author_name.join(", ") : "Unknown",
-      copies: Math.floor(Math.random() * 5) + 1, // random number 1–5
-      available: Math.random() > 0.3, // 70% chance of available
-    }));
-
-    res.json(books);
-  } catch (error) {
-    console.error("Error fetching from OpenLibrary:", error);
-    res.status(500).json({ error: "Failed to fetch books" });
-  }
-});
-
-app.listen(5000, () => console.log("✅ Backend running on http://localhost:5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
