@@ -18,8 +18,8 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Routes
-app.use("/api/borrow", borrowRoutes);
-app.use("/api/author", authorRoutes);
+app.use("/api/borrowed", borrowRoutes);
+app.use("/api/authors", authorRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
