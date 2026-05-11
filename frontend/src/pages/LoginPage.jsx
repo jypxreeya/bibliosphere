@@ -1,26 +1,62 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/LoginPage.css";
-
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseConfig.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginPage() {
-  const [role, setRole] = useState("student"); // Default: Student
+  const [role, setRole] = useState("student");
+  const [isSignup, setIsSignup] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  const handleAuth = async () => {
+    try {
+      if (isSignup) {
+        const res = await axios.post("http://localhost:5000/api/auth/signup", {
+          email,
+          password,
+          name,
+          role
+        });
+        alert("Account created! Please login.");
+        setIsSignup(false);
+      } else {
+        // REAL Firebase Login
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        console.log("Logged in:", user.email);
+        
+        if (role === "student") navigate("/student-dashboard");
+        else navigate("/staff-dashboard");
+      }
+    } catch (error) {
+      console.error("Auth error:", error);
+      alert(error.message || "Authentication failed");
+    }
+  };
+
+  const handleForgotPassword = () => {
+    alert("Password reset link sent to " + email);
+  };
 
   return (
     <div className="login-container">
-      {/* Background overlay */}
       <div className="background-overlay"></div>
 
-      {/* Login Box */}
       <motion.div
         className="login-box"
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h2>Login</h2>
+        <h2>{isSignup ? "Create Account" : "Login"}</h2>
 
-        {/* Radio Buttons */}
         <div className="role-select">
           <label>
             <input
@@ -30,7 +66,7 @@ export default function LoginPage() {
               checked={role === "student"}
               onChange={() => setRole("student")}
             />
-            Student Login
+            Student
           </label>
           <label>
             <input
@@ -40,50 +76,49 @@ export default function LoginPage() {
               checked={role === "staff"}
               onChange={() => setRole("staff")}
             />
-            Staff Login
+            Staff
           </label>
         </div>
 
-        {/* Animate between Student/Staff forms */}
-        <AnimatePresence mode="wait">
-          {role === "student" ? (
-            <motion.div
-              key="student"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={{ duration: 0.4 }}
-              className="form-content"
-            >
-              <input type="email" placeholder="Enter Student Email" />
-              <input type="password" placeholder="Enter Password" />
-              <button
-                onClick={() => (window.location.href = "/student-dashboard")}
-              >
-                Login
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="staff"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="form-content"
-            >
-              <input type="email" placeholder="Enter Staff Email" />
-              <input type="password" placeholder="Enter Password" />
-              <button
-                onClick={() => (window.location.href = "/staff-dashboard")}
-              >
-                Login
-              </button>
-            </motion.div>
+        <div className="form-content">
+          {isSignup && (
+            <input 
+              type="text" 
+              placeholder="Full Name" 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           )}
-        </AnimatePresence>
+          <input 
+            type="email" 
+            placeholder="Email Address" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          
+          {!isSignup && (
+            <button className="forgot-btn" onClick={handleForgotPassword}>
+              Forgot Password?
+            </button>
+          )}
 
-        
+          <button onClick={handleAuth}>
+            {isSignup ? "Sign Up" : "Login"}
+          </button>
+
+          <p className="toggle-text">
+            {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+            <span onClick={() => setIsSignup(!isSignup)}>
+              {isSignup ? "Login here" : "Register here"}
+            </span>
+          </p>
+        </div>
       </motion.div>
     </div>
   );

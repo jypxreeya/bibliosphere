@@ -5,32 +5,44 @@ import { BookOpen, Search, Calendar, Users, TrendingUp, LogIn } from "lucide-rea
 import "../styles/LandingPage.css";
 
 export default function LandingPage() {
-  const navigate = useNavigate(); // ✅ Hook to navigate between pages
+  const navigate = useNavigate();
 
   const features = [
     {
-      icon: <Search className="icon" />,
-      title: "Book Tracking",
+      icon: <Search size={32} />,
+      title: "Smart Book Search",
       description:
-        "Track the availability of each book in real time. Know exactly how many copies are available and where they are located.",
+        "Search by title, author, or category. View exact shelf location, row number, and real-time availability.",
     },
     {
-      icon: <Calendar className="icon" />,
-      title: "Due Date Tracking",
+      icon: <TrendingUp size={32} />,
+      title: "AI Recommendations",
       description:
-        "Never miss a return date again. Get automated reminders for due dates and manage your borrowed books efficiently.",
+        "Get personalized book suggestions based on your course, reading history, and trending academic resources.",
     },
     {
-      icon: <Users className="icon" />,
-      title: "Author-wise Categorization",
+      icon: <BookOpen size={32} />,
+      title: "Digital Book Access",
       description:
-        "Easily explore books by your favorite authors. Find all their works grouped in one organized place.",
+        "Read digital copies of books instantly. Secure access to study materials without carrying physical copies.",
     },
     {
-      icon: <TrendingUp className="icon" />,
-      title: "Predictive Analysis",
+      icon: <Users size={32} />,
+      title: "RFID Security",
       description:
-        "Smart recommendations and reading trend insights help you discover popular books faster.",
+        "Advanced RFID-based tracking and security system to prevent unauthorized removal and automate logs.",
+    },
+    {
+      icon: <Calendar size={32} />,
+      title: "Digital Resources",
+      description:
+        "Access recorded lectures, research papers, and university question papers in one digital portal.",
+    },
+    {
+      icon: <LogIn size={32} />,
+      title: "Smart Navigation",
+      description:
+        "Guided navigation to the exact shelf and row, making book finding faster and easier for students.",
     },
   ];
 
@@ -44,24 +56,23 @@ export default function LandingPage() {
           transition={{ duration: 1 }}
         >
           <h1 className="title">
-            <span>Bibliosphere</span>
+            <span className="gradient-text">BIBLIOSPHERE</span>
           </h1>
           <p className="subtitle">
-            Smart Library Management System that simplifies, digitalizes, and
-            automates book management and user operations.
+            Smart Library Management System. The future of library intelligence. 
+            Automated, digitalized, and AI-driven knowledge management.
           </p>
 
           <div className="buttons">
-            {/* ✅ Updated login button to navigate */}
             <button className="login-btn" onClick={() => navigate("/login")}>
-              <LogIn className="login-icon" /> Login
+              <LogIn size={20} /> Access Library
             </button>
 
             <button
               className="explore-btn"
               onClick={() => {
                 document
-                  .getElementById("about")
+                  .getElementById("features")
                   .scrollIntoView({ behavior: "smooth" });
               }}
             >
@@ -72,40 +83,21 @@ export default function LandingPage() {
       </div>
 
       <motion.section
-        id="about"
-        className="about-section"
-        initial={{ x: -100, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2>About Bibliosphere</h2>
-        <p>
-          Bibliosphere is a smart library management system designed to simplify
-          and digitalize the process of managing books, users, and library
-          operations. It provides an efficient platform for both librarians and
-          students/readers to manage book transactions like issuing, returning,
-          and searching for books — all through a user-friendly web interface.
-          It aims to replace the traditional manual system with a modern,
-          automated, and intelligent approach using web technologies.
-        </p>
-      </motion.section>
-
-      <motion.section
         id="features"
         className="features-section"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <h2>Our Features</h2>
+        <h2 className="gradient-text" style={{fontSize: '2.5rem', marginBottom: '3rem'}}>System Capabilities</h2>
         <div className="features-grid">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="feature-card"
+              className="feature-card glass-card"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.3 }}
+              transition={{ delay: index * 0.1 }}
             >
               <div className="feature-icon">{feature.icon}</div>
               <h3>{feature.title}</h3>
@@ -116,8 +108,8 @@ export default function LandingPage() {
       </motion.section>
 
       <footer className="footer">
-        <BookOpen className="footer-icon" />
-        <p>© 2025 Bibliosphere — Smart Library Management System</p>
+        <BookOpen className="footer-icon" size={24} />
+        <p>© 2026 Bibliosphere — Smart Library Management System</p>
       </footer>
     </div>
   );

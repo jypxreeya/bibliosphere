@@ -1,0 +1,47 @@
+:root {
+  --bg-surface: #031427;
+  --color-primary: #e9feff; /* Very bright neon cyan */
+  --color-secondary: #d4a5ff; /* Lighter lavender */
+  --text-muted: #94a3b8; /* Much lighter slate for better readability */
+  --glass-bg: rgba(233, 254, 255, 0.07);
+  --glass-border: rgba(233, 254, 255, 0.2);
+  --neon-glow: 0 0 20px rgba(233, 254, 255, 0.4);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: var(--bg-surface);
+  color: var(--color-primary);
+  overflow-x: hidden;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--neon-glow);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}

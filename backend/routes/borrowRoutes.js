@@ -1,5 +1,5 @@
 import express from "express";
-import BorrowedBook from "../models/BorrowedBook.js";
+import { db } from "../firebase.js";
 import nodemailer from "nodemailer";
 
 const router = express.Router();
@@ -12,14 +12,15 @@ router.post("/borrow", async (req, res) => {
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 15);
 
-    const newBorrow = new BorrowedBook({
+    const borrowData = {
       title,
       author,
       userEmail,
-      dueDate,
-    });
+      dueDate: dueDate.toISOString(),
+      borrowedAt: new Date().toISOString()
+    };
 
-    await newBorrow.save();
+    await db.collection("borrowed_books").add(borrowData);
 
     // send confirmation email
     const transporter = nodemailer.createTransport({
