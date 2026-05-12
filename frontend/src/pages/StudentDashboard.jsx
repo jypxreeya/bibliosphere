@@ -17,7 +17,10 @@ import {
   ChevronRight,
   TrendingUp,
   Moon,
-  FileText
+  FileText,
+  Compass,
+  Database,
+  Cpu
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/StudentDashboard.css";
@@ -25,24 +28,6 @@ import "../styles/StudentDashboard.css";
 export default function StudentDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Dashboard");
-  const [recommendations, setRecommendations] = useState([]);
-  const [loadingRecs, setLoadingRecs] = useState(true);
-
-  React.useEffect(() => {
-    const fetchRecs = async () => {
-      try {
-        const userEmail = "jayapriyakalidas@gmail.com";
-        const res = await fetch(`http://localhost:5000/api/history/recommendations/${userEmail}`);
-        const data = await res.json();
-        setRecommendations(data);
-      } catch (err) {
-        console.error("Failed to fetch recommendations:", err);
-      } finally {
-        setLoadingRecs(false);
-      }
-    };
-    fetchRecs();
-  }, []);
 
   const menuItems = [
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/student-dashboard" },
@@ -57,10 +42,11 @@ export default function StudentDashboard() {
     { name: "Settings", icon: <Settings size={20} />, path: "#" },
   ];
 
-  const stats = [
-    { label: "Active Borrowings", value: "04", icon: <BookOpen size={18} />, color: "var(--color-primary)" },
-    { label: "Smart Credits", value: "840", icon: <Star size={18} />, color: "var(--color-secondary)" },
-    { label: "Research Hours", value: "128", icon: <Clock size={18} />, color: "#54d2d2" },
+  const quickActions = [
+    { name: "Search Archives", icon: <Search size={24} />, desc: "Locate physical & digital volumes", path: "/check-availability" },
+    { name: "Research Hub", icon: <Cpu size={24} />, desc: "Access live academic papers", path: "/research-portal" },
+    { name: "Path Guidance", icon: <Compass size={24} />, desc: "Navigate to exact shelf row", path: "/navigation" },
+    { name: "Course Matrix", icon: <Database size={24} />, desc: "View subject recommendations", path: "/mycourse" },
   ];
 
   return (
@@ -68,7 +54,7 @@ export default function StudentDashboard() {
       {/* Sidebar */}
       <aside className="nexus-sidebar">
         <div className="branding">
-          <h2 className="brand-name gradient-text">BIBLIOSPHERE</h2>
+          <h2 className="brand-name">BIBLIOSPHERE</h2>
           <span className="brand-tagline">Academic Nexus v4.0</span>
         </div>
 
@@ -97,7 +83,7 @@ export default function StudentDashboard() {
       <main className="nexus-main">
         <header className="nexus-header">
           <div className="console-title">
-            <h3 className="font-mono">RESEARCHER CONSOLE</h3>
+            <h3 className="font-mono">RESEARCHER CONSOLE // HUB-01</h3>
           </div>
 
           <div className="global-search-wrapper">
@@ -105,10 +91,7 @@ export default function StudentDashboard() {
             <input type="text" placeholder="Omni-search metadata..." />
           </div>
 
-          <div className="user-profile-pill glass-card">
-            <Bell size={20} className="text-muted" />
-            <Moon size={20} className="text-muted" />
-            <div className="divider" />
+          <div className="user-profile-pill">
             <div className="user-info">
               <span className="user-name">Dr. Aris Thorne</span>
               <span className="user-dept">Quantum Linguistics Dept.</span>
@@ -119,77 +102,101 @@ export default function StudentDashboard() {
 
         <div className="nexus-content">
           <section className="welcome-section">
-            <h1 className="welcome-text">Welcome back, <span className="gradient-text">Researcher</span></h1>
-            <p className="system-status">System status: <span className="text-active">OPTIMIZED</span> | Connection: <span className="text-active">SECURE</span></p>
-          </section>
-
-          <div className="dashboard-grid-layout">
-            <div className="left-column">
-              <div className="stats-row">
-                {stats.map((stat, i) => (
-                  <motion.div 
-                    key={i} 
-                    className="nexus-stat-card glass-card"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <div className="stat-icon-wrapper" style={{ color: stat.color }}>
-                      {stat.icon}
-                    </div>
-                    <div className="stat-data">
-                      <span className="stat-val font-mono">{stat.value}</span>
-                      <span className="stat-lab">{stat.label}</span>
-                    </div>
-                  </motion.div>
-                ))}
+            <motion.h1 
+              className="welcome-text"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              Welcome back, <br/>
+              <span className="gradient-text">Researcher.</span>
+            </motion.h1>
+            
+            <div className="status-hud glass-card">
+              <div className="hud-item">
+                <span className="hud-label">System Status</span>
+                <span className="hud-value text-active">OPTIMIZED</span>
               </div>
-
-              <div className="nexus-main-card glass-card">
-                <div className="card-header">
-                  <h3><Zap size={18} color="var(--color-secondary)" /> Recommended Archives</h3>
-                  <button className="see-all">See All <ChevronRight size={16} /></button>
-                </div>
-                <div className="recommendation-list">
-                  {loadingRecs ? (
-                    <p className="loading-text font-mono">Scanning archives...</p>
-                  ) : recommendations.length > 0 ? (
-                    recommendations.map((rec, i) => (
-                      <div key={i} className="rec-row">
-                        <div className="rec-info">
-                          <span className="rec-title">{rec.title}</span>
-                          <span className="rec-meta">{rec.author} • {rec.category || 'General'}</span>
-                        </div>
-                        <button className="access-btn">VIEW</button>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="rec-row">
-                      <p className="no-data">No specific recommendations yet. Start exploring!</p>
-                    </div>
-                  )}
-                </div>
+              <div className="hud-item">
+                <span className="hud-label">Connection</span>
+                <span className="hud-value text-active">SECURE</span>
+              </div>
+              <div className="hud-item">
+                <span className="hud-label">Uptime</span>
+                <span className="hud-value">99.9%</span>
               </div>
             </div>
+          </section>
 
-            <div className="right-column">
-              <div className="nexus-side-card glass-card">
-                <div className="card-header">
-                  <h3><TrendingUp size={18} color="var(--color-primary)" /> Intelligence Analytics</h3>
+          <div className="dashboard-matrix">
+            {quickActions.map((action, i) => (
+              <motion.div 
+                key={i} 
+                className="action-card glass-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                onClick={() => navigate(action.path)}
+              >
+                <div className="action-icon-box">
+                  {action.icon}
                 </div>
-                <div className="heatmap-box">
-                  <div className="heatmap-grid">
-                    {[...Array(35)].map((_, i) => (
-                      <div key={i} className={`heat-dot ${Math.random() > 0.7 ? 'active' : ''}`} />
-                    ))}
-                  </div>
-                  <p className="heat-label">Nexus Activity Levels (Last 30 Days)</p>
+                <div className="action-info">
+                  <h3 className="action-name">{action.name}</h3>
+                  <p className="action-desc">{action.desc}</p>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="analysis-row">
+            <motion.div 
+              className="analytics-card glass-card"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className="card-header">
+                <h3><TrendingUp size={18} color="var(--color-primary)" /> Activity Intelligence</h3>
+                <span className="font-mono text-muted">L-30 DAYS</span>
               </div>
+              <div className="heatmap-container">
+                <div className="heatmap-grid">
+                  {[...Array(56)].map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`heat-dot ${i % 7 === 0 ? 'high' : i % 3 === 0 ? 'mid' : i % 5 === 0 ? 'low' : ''}`} 
+                    />
+                  ))}
+                </div>
+                <p className="heat-label mt-4">Node Activity Across Academic Sectors</p>
+              </div>
+            </motion.div>
+
+            <div className="side-stack">
+              <motion.div 
+                className="stat-pill-card glass-card"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="stat-circle">85%</div>
+                <div className="stat-text">
+                  <h4>85%</h4>
+                  <span>Engagement Level</span>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                className="stat-pill-card glass-card"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="stat-circle" style={{ animationDelay: '0.5s' }}>128</div>
+                <div className="stat-text">
+                  <h4>128</h4>
+                  <span>Research Hours</span>
+                </div>
+              </motion.div>
 
               <div className="nexus-side-card glass-card newsletter">
-                <h3>Library Broadcast</h3>
-                <p>New arrivals in the **Theoretical Physics** sector. Digital copies now available for all students.</p>
+                <h3 className="gradient-text">Broadcast // Library</h3>
+                <p>New arrivals in the Theoretical Physics sector. Digital copies now available for all students.</p>
                 <div className="progress-bar">
                   <div className="progress-fill" style={{ width: '65%' }} />
                 </div>
