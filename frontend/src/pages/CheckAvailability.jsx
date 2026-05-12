@@ -10,11 +10,14 @@ import {
   Maximize2,
   Navigation,
   Bookmark,
-  Bell
+  Bell,
+  ArrowLeft
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "../styles/CheckAvailability.css";
 
 const CheckAvailability = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("title");
   const [books, setBooks] = useState([]);
@@ -48,6 +51,14 @@ const CheckAvailability = () => {
       }));
 
       setBooks(openLibraryBooks);
+
+      // 2. Log search to backend history
+      const userEmail = "jayapriyakalidas@gmail.com"; // Mock user for now
+      axios.post("http://localhost:5000/api/history/search", {
+        userEmail,
+        query: searchTerm
+      }).catch(err => console.error("History log error:", err));
+
     } catch (err) {
       console.error("❌ Error fetching books from OpenLibrary:", err);
       alert("Failed to fetch books from Open Library. Please check your connection.");
@@ -130,9 +141,14 @@ const CheckAvailability = () => {
 
       {/* Header */}
       <header className="search-header">
-        <h1 className="gradient-text font-mono">BIBLIOSPHERE ARCHIVES</h1>
+        <div className="header-left">
+          <button className="back-btn glass-card" onClick={() => navigate(-1)}>
+            <ArrowLeft size={18} />
+          </button>
+          <h1 className="gradient-text font-mono">BIBLIOSPHERE ARCHIVES</h1>
+        </div>
         <div className="user-nav">
-          <button className="glass-card nav-btn">Researcher Console</button>
+          <button className="glass-card nav-btn" onClick={() => navigate("/student-dashboard")}>Researcher Console</button>
         </div>
       </header>
 

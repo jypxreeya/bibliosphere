@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
 :root {
   --bg-surface: #031427;
   --color-primary: #e9feff; /* Very bright neon cyan */
@@ -7,8 +9,6 @@
   --glass-border: rgba(233, 254, 255, 0.2);
   --neon-glow: 0 0 20px rgba(233, 254, 255, 0.4);
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
 * {
   margin: 0;

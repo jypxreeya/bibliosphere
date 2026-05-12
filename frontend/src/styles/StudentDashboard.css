@@ -308,6 +308,27 @@
   cursor: pointer;
 }
 
+.loading-text {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-secondary);
+  animation: pulse 1.5s infinite;
+}
+
+.no-data {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
 /* Right Column */
 .nexus-side-card {
   padding: 1.8rem;

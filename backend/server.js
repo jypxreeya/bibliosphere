@@ -6,6 +6,8 @@ import authorRoutes from "./routes/authorRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import resourceRoutes from "./routes/resourceRoutes.js";
+import historyRoutes from "./routes/userHistoryRoutes.js";
+import researchRoutes from "./routes/researchRoutes.js";
 
 dotenv.config();
 
@@ -19,6 +21,8 @@ app.use("/api/books", bookRoutes);
 app.use("/api/borrowed", borrowRoutes);
 app.use("/api/authors", authorRoutes);
 app.use("/api/resources", resourceRoutes);
+app.use("/api/history", historyRoutes);
+app.use("/api/research", researchRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));

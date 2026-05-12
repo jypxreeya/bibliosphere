@@ -16,7 +16,8 @@ import {
   Clock,
   ChevronRight,
   TrendingUp,
-  Moon
+  Moon,
+  FileText
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/StudentDashboard.css";
@@ -24,11 +25,29 @@ import "../styles/StudentDashboard.css";
 export default function StudentDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Dashboard");
+  const [recommendations, setRecommendations] = useState([]);
+  const [loadingRecs, setLoadingRecs] = useState(true);
+
+  React.useEffect(() => {
+    const fetchRecs = async () => {
+      try {
+        const userEmail = "jayapriyakalidas@gmail.com";
+        const res = await fetch(`http://localhost:5000/api/history/recommendations/${userEmail}`);
+        const data = await res.json();
+        setRecommendations(data);
+      } catch (err) {
+        console.error("Failed to fetch recommendations:", err);
+      } finally {
+        setLoadingRecs(false);
+      }
+    };
+    fetchRecs();
+  }, []);
 
   const menuItems = [
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/student-dashboard" },
     { name: "Search Books", icon: <Search size={20} />, path: "/check-availability" },
-    { name: "Recommendations", icon: <Star size={20} />, path: "#" },
+    { name: "Research Portal", icon: <FileText size={20} />, path: "/research-portal" },
     { name: "Digital Resources", icon: <BookOpen size={20} />, path: "/mycourse" },
     { name: "Attendance", icon: <Calendar size={20} />, path: "#" },
     { name: "Navigation", icon: <NavIcon size={20} />, path: "#" },
@@ -132,27 +151,23 @@ export default function StudentDashboard() {
                   <button className="see-all">See All <ChevronRight size={16} /></button>
                 </div>
                 <div className="recommendation-list">
-                  <div className="rec-row">
-                    <div className="rec-info">
-                      <span className="rec-title">Neural Synapse Mapping</span>
-                      <span className="rec-meta">Prof. Kaelen Stark • 2023 • Digital Copy</span>
+                  {loadingRecs ? (
+                    <p className="loading-text font-mono">Scanning archives...</p>
+                  ) : recommendations.length > 0 ? (
+                    recommendations.map((rec, i) => (
+                      <div key={i} className="rec-row">
+                        <div className="rec-info">
+                          <span className="rec-title">{rec.title}</span>
+                          <span className="rec-meta">{rec.author} • {rec.category || 'General'}</span>
+                        </div>
+                        <button className="access-btn">VIEW</button>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="rec-row">
+                      <p className="no-data">No specific recommendations yet. Start exploring!</p>
                     </div>
-                    <button className="access-btn">ACCESS</button>
-                  </div>
-                  <div className="rec-row">
-                    <div className="rec-info">
-                      <span className="rec-title">Quantum Fabric Theory</span>
-                      <span className="rec-meta">Dr. S. Chen • 2024 • Physical Book</span>
-                    </div>
-                    <button className="access-btn">RESERVE</button>
-                  </div>
-                  <div className="rec-row">
-                    <div className="rec-info">
-                      <span className="rec-title">Linguistic Patterns in AI</span>
-                      <span className="rec-meta">Aris Thorne • 2025 • Research Paper</span>
-                    </div>
-                    <button className="access-btn">VIEW</button>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

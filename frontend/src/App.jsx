@@ -9,6 +9,7 @@ import CheckAvailability from "./pages/CheckAvailability";
 import AuthorCategorization from "./pages/AuthorCategorization";
 import MyCourse from "./pages/MyCourse";
 import BorrowedBooks from "./pages/BorrowedBooks"; 
+import ResearchPortal from "./pages/ResearchPortal";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
         <Route path="/mycourse" element={<MyCourse />} /> 
         <Route path="/borrowed-books" element={<BorrowedBooks />} />
+        <Route path="/research-portal" element={<ResearchPortal />} />
 
       </Routes>
     </Router>

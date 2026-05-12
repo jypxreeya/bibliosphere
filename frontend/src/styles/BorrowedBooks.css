@@ -1,69 +1,119 @@
-.borrowed-books-container {
-  padding: 40px;
-  background-color: #faf9f6;
-  min-height: 100vh;
-  font-family: "Poppins", sans-serif;
-}
-
-.page-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #3a3a3a;
-  margin-bottom: 40px;
-}
-
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
 .book-card {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-.book-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.book-card h3 {
-  color: #2b6777;
+.status-pill {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status-pill.active {
+  background: rgba(0, 245, 255, 0.1);
+  color: #00f5ff;
+  border: 1px solid #00f5ff;
+}
+
+.status-pill.overdue {
+  background: rgba(255, 0, 255, 0.1);
+  color: #ff00ff;
+  border: 1px solid #ff00ff;
+}
+
+.book-title {
   font-size: 1.3rem;
-  margin-bottom: 8px;
+  font-weight: 700;
+  margin: 0.5rem 0;
 }
 
-.book-card p {
-  color: #555;
-  margin: 5px 0;
-  font-size: 0.95rem;
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
-.status {
-  margin-top: 10px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  display: inline-block;
-  font-weight: 600;
+.book-info b {
+  color: var(--color-primary);
 }
 
-.status.active {
-  background-color: #d6f8d6;
-  color: #267326;
+.highlight-text {
+  color: var(--color-secondary);
+  font-weight: 700;
 }
 
-.status.overdue {
-  background-color: #ffd6d6;
-  color: #b30000;
+.extend-btn {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--color-primary);
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.extend-btn:hover {
+  background: var(--color-primary);
+  color: var(--bg-surface);
+}
+
+.no-books-container {
+  grid-column: 1 / -1;
+  padding: 4rem;
+  text-align: center;
 }
 
 .no-books {
-  text-align: center;
-  color: #888;
-  font-size: 1rem;
-  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Back Button & Header Group */
+.header-left-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.back-btn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(233, 254, 255, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: var(--neon-glow);
+  transform: translateX(-3px);
 }

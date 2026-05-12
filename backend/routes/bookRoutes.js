@@ -63,13 +63,20 @@ router.get("/search", async (req, res) => {
   const { query, type } = req.query; // type: 'title', 'author', 'category'
 
   try {
+    if (!db) {
+      console.warn("⚠️ Search requested but database is disabled. Returning mock data.");
+      const mockBooks = [
+        { id: "b1", title: `${query} Fundamentals`, author: "Nexus Scholar", available: true, shelfLocation: "7", rowNumber: "D", category: "Web Technology" },
+        { id: "b2", title: `Advanced ${query} Studies`, author: "Dr. Aris Thorne", available: true, shelfLocation: "3", rowNumber: "A", category: "Agile Methodology" },
+        { id: "b3", title: `The ${query} Handbook`, author: "Open Source Collective", available: false, shelfLocation: "5", rowNumber: "C", category: "Computer Networks" }
+      ];
+      return res.json(mockBooks.filter(b => b.title.toLowerCase().includes(query.toLowerCase()) || b.category.toLowerCase().includes(query.toLowerCase())));
+    }
+    
     let booksRef = db.collection("books");
     let snapshot;
 
     if (query) {
-      // Simple case-insensitive search (prefix match)
-      // Note: Firestore doesn't support true partial text search out of the box
-      // For better search, we would use Algolia or similar, but for now we'll do prefix match
       snapshot = await booksRef
         .where(type || "title", ">=", query)
         .where(type || "title", "<=", query + "\uf8ff")
