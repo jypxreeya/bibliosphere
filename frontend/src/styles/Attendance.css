@@ -1,0 +1,212 @@
+.attendance-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.attendance-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.calendar-card {
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+.calendar-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Customizing react-calendar to match nexus theme */
+.nexus-calendar {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit !important;
+  color: #fff !important;
+}
+
+.react-calendar__navigation button {
+  color: var(--color-primary) !important;
+  min-width: 44px;
+  background: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: rgba(0, 245, 255, 0.05) !important;
+  border-radius: 8px;
+}
+
+.react-calendar__month-view__weekdays {
+  color: var(--text-muted) !important;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.react-calendar__tile {
+  padding: 1.5rem 0.5rem !important;
+  color: #fff !important;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: rgba(0, 245, 255, 0.1) !important;
+  color: var(--color-primary) !important;
+}
+
+.react-calendar__tile--now {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--color-secondary) !important;
+  color: var(--color-secondary) !important;
+}
+
+.react-calendar__tile--active {
+  background: var(--color-primary) !important;
+  color: var(--bg-surface) !important;
+  box-shadow: 0 0 15px var(--color-primary);
+}
+
+.attendance-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.logs-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.logs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.log-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(5px);
+}
+
+.log-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.log-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.log-subject {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.log-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.log-status {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.log-status.present {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.log-status.absent {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.report-card {
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.download-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--color-primary);
+  color: var(--bg-surface);
+  border: none;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  transition: 0.3s;
+}
+
+.download-btn:hover {
+  box-shadow: var(--neon-glow);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1200px) {
+  .attendance-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
