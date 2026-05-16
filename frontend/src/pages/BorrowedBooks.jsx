@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { 
-  LayoutDashboard, 
-  Search, 
-  Star, 
-  BookOpen, 
-  Calendar, 
-  Navigation as NavIcon, 
-  History, 
-  Bell, 
-  User, 
+import {
+  LayoutDashboard,
+  Search,
+  Star,
+  BookOpen,
+  Calendar,
+  Navigation as NavIcon,
+  History,
+  Bell,
+  User,
   Settings,
   Plus,
   Moon,
   ArrowLeft,
   Clock,
-  FileText
+  FileText,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/BorrowedBooks.css";
@@ -36,7 +37,7 @@ const BorrowedBooks = () => {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   useEffect(() => {
@@ -57,12 +58,16 @@ const BorrowedBooks = () => {
 
         <nav className="nexus-nav">
           {menuItems.map((item) => (
-            <div 
-              key={item.name} 
+            <div
+              key={item.name}
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -71,9 +76,7 @@ const BorrowedBooks = () => {
           ))}
         </nav>
 
-        <button className="session-btn">
-          <Plus size={18} /> New Archive Entry
-        </button>
+
       </aside>
 
       {/* Main Content */}
@@ -98,8 +101,8 @@ const BorrowedBooks = () => {
             <Moon size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>

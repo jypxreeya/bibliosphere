@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  LayoutDashboard, 
-  Search, 
-  Star, 
-  BookOpen, 
-  Calendar, 
-  Navigation as NavIcon, 
-  History, 
-  Bell, 
-  User, 
+import {
+  LayoutDashboard,
+  Search,
+  Star,
+  BookOpen,
+  Calendar,
+  Navigation as NavIcon,
+  History,
+  Bell,
+  User,
   Settings,
   Plus,
   Zap,
@@ -20,7 +20,8 @@ import {
   FileText,
   Compass,
   Database,
-  Cpu
+  Cpu,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/StudentDashboard.css";
@@ -39,7 +40,7 @@ export default function StudentDashboard() {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   const quickActions = [
@@ -60,12 +61,16 @@ export default function StudentDashboard() {
 
         <nav className="nexus-nav">
           {menuItems.map((item) => (
-            <div 
-              key={item.name} 
+            <div
+              key={item.name}
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -74,9 +79,7 @@ export default function StudentDashboard() {
           ))}
         </nav>
 
-        <button className="session-btn">
-          <Plus size={18} /> New Research Session
-        </button>
+
       </aside>
 
       {/* Main Content */}
@@ -93,8 +96,8 @@ export default function StudentDashboard() {
 
           <div className="user-profile-pill">
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>
@@ -102,15 +105,14 @@ export default function StudentDashboard() {
 
         <div className="nexus-content">
           <section className="welcome-section">
-            <motion.h1 
+            <motion.h1
               className="welcome-text"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              Welcome back, <br/>
-              <span className="gradient-text">Researcher.</span>
+              Welcome <span className="gradient-text">Jayapriya.</span>
             </motion.h1>
-            
+
             <div className="status-hud glass-card">
               <div className="hud-item">
                 <span className="hud-label">System Status</span>
@@ -129,8 +131,8 @@ export default function StudentDashboard() {
 
           <div className="dashboard-matrix">
             {quickActions.map((action, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="action-card glass-card"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -149,7 +151,7 @@ export default function StudentDashboard() {
           </div>
 
           <div className="analysis-row">
-            <motion.div 
+            <motion.div
               className="analytics-card glass-card"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -161,9 +163,9 @@ export default function StudentDashboard() {
               <div className="heatmap-container">
                 <div className="heatmap-grid">
                   {[...Array(56)].map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`heat-dot ${i % 7 === 0 ? 'high' : i % 3 === 0 ? 'mid' : i % 5 === 0 ? 'low' : ''}`} 
+                    <div
+                      key={i}
+                      className={`heat-dot ${i % 7 === 0 ? 'high' : i % 3 === 0 ? 'mid' : i % 5 === 0 ? 'low' : ''}`}
                     />
                   ))}
                 </div>
@@ -172,7 +174,7 @@ export default function StudentDashboard() {
             </motion.div>
 
             <div className="side-stack">
-              <motion.div 
+              <motion.div
                 className="stat-pill-card glass-card"
                 whileHover={{ scale: 1.02 }}
               >
@@ -183,7 +185,7 @@ export default function StudentDashboard() {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="stat-pill-card glass-card"
                 whileHover={{ scale: 1.02 }}
               >
@@ -194,14 +196,7 @@ export default function StudentDashboard() {
                 </div>
               </motion.div>
 
-              <div className="nexus-side-card glass-card newsletter">
-                <h3 className="gradient-text">Broadcast // Library</h3>
-                <p>New arrivals in the Theoretical Physics sector. Digital copies now available for all students.</p>
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: '65%' }} />
-                </div>
-                <span className="progress-text">Storage Capacity: 65%</span>
-              </div>
+
             </div>
           </div>
         </div>

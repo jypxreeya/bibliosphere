@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { 
-  LayoutDashboard, 
-  Search, 
-  Star, 
-  BookOpen, 
-  Calendar, 
-  Navigation as NavIcon, 
-  History, 
-  Bell, 
-  User, 
+import {
+  LayoutDashboard,
+  Search,
+  Star,
+  BookOpen,
+  Calendar,
+  Navigation as NavIcon,
+  History,
+  Bell,
+  User,
   Settings,
   Plus,
   Moon,
@@ -18,7 +18,8 @@ import {
   Database,
   ArrowRight,
   ArrowLeft,
-  FileText
+  FileText,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/MyCourse.css";
@@ -51,7 +52,7 @@ const MyCourse = () => {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   const fetchData = async (subject) => {
@@ -75,18 +76,22 @@ const MyCourse = () => {
         if (recommendations.length > 0) {
           setCourseRecs((prev) => ({ ...prev, [subject]: recommendations }));
         } else {
-          setCourseRecs((prev) => ({ ...prev, [subject]: [
-            { title: `${subject} Foundations`, author: "Academic Press" },
-            { title: `Introduction to ${subject}`, author: "Nexus Library" }
-          ]}));
+          setCourseRecs((prev) => ({
+            ...prev, [subject]: [
+              { title: `${subject} Foundations`, author: "Academic Press" },
+              { title: `Introduction to ${subject}`, author: "Nexus Library" }
+            ]
+          }));
         }
       })
       .catch(err => {
         console.error(`Recommendation fetch failed for ${subject}:`, err);
-        setCourseRecs((prev) => ({ ...prev, [subject]: [
-          { title: `${subject} Essentials`, author: "Bibliosphere Curator" },
-          { title: `${subject} Principles`, author: "Open Library" }
-        ]}));
+        setCourseRecs((prev) => ({
+          ...prev, [subject]: [
+            { title: `${subject} Essentials`, author: "Bibliosphere Curator" },
+            { title: `${subject} Principles`, author: "Open Library" }
+          ]
+        }));
       });
   };
 
@@ -99,7 +104,7 @@ const MyCourse = () => {
       {/* Detail Modal */}
       {isModalOpen && selectedSubject && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <motion.div 
+          <motion.div
             className="subject-detail-modal glass-card"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -156,12 +161,16 @@ const MyCourse = () => {
 
         <nav className="nexus-nav">
           {menuItems.map((item) => (
-            <div 
-              key={item.name} 
+            <div
+              key={item.name}
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -170,9 +179,7 @@ const MyCourse = () => {
           ))}
         </nav>
 
-        <button className="session-btn">
-          <Plus size={18} /> New Archive Entry
-        </button>
+
       </aside>
 
       {/* Main Content */}
@@ -197,8 +204,8 @@ const MyCourse = () => {
             <Moon size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>
@@ -225,7 +232,7 @@ const MyCourse = () => {
                   </div>
                   <h2 className="subject-name">{subject}</h2>
                 </div>
-                
+
                 <div className="content-section">
                   <div className="content-group">
                     <h3 className="section-subtitle">RECOMMENDED READING</h3>
@@ -248,7 +255,7 @@ const MyCourse = () => {
                 </div>
 
                 <div className="card-footer">
-                  <button 
+                  <button
                     className="view-more-btn"
                     onClick={() => {
                       setSelectedSubject(subject);

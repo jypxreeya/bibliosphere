@@ -145,7 +145,7 @@ const CheckAvailability = () => {
           <button className="back-btn glass-card" onClick={() => navigate(-1)}>
             <ArrowLeft size={18} />
           </button>
-          <h1 className="gradient-text font-mono">BIBLIOSPHERE ARCHIVES</h1>
+          <h1 className="gradient-text font-mono">BIBLIOSPHERE REPOSITORY</h1>
         </div>
         <div className="user-nav">
           <button className="glass-card nav-btn" onClick={() => navigate("/student-dashboard")}>Researcher Console</button>
@@ -170,7 +170,7 @@ const CheckAvailability = () => {
               </div>
               
               <button className="execute-search-btn highlight" onClick={handleSearch}>
-                SEARCH ARCHIVES
+                SEARCH REPOSITORY
               </button>
 
               <div className="filter-group glass-card">

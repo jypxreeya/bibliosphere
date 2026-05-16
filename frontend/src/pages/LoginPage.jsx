@@ -33,7 +33,8 @@ export default function LoginPage() {
         console.log("Logged in:", user.email);
         
         if (role === "student") navigate("/student-dashboard");
-        else navigate("/staff-dashboard");
+        else if (role === "staff") navigate("/staff-dashboard");
+        else if (role === "admin") navigate("/admin-dashboard");
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -77,6 +78,16 @@ export default function LoginPage() {
               onChange={() => setRole("staff")}
             />
             Staff
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="admin"
+              checked={role === "admin"}
+              onChange={() => setRole("admin")}
+            />
+            Admin
           </label>
         </div>
 

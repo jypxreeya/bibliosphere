@@ -25,6 +25,25 @@ transporter.verify(function (error, success) {
   }
 });
 
+// Add New Book
+router.post("/", async (req, res) => {
+  const bookData = req.body;
+  try {
+    if (!db) {
+       return res.json({ id: "mock-id", message: "Book added successfully (Mock Mode)" });
+    }
+    const docRef = await db.collection("books").add({
+      ...bookData,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+    res.json({ id: docRef.id, message: "Book added successfully" });
+  } catch (error) {
+    console.error("Add book error:", error);
+    res.status(500).json({ message: "Failed to add book" });
+  }
+});
+
 // Request Book Reminder (Email)
 router.post("/remind", async (req, res) => {
   const { email, bookTitle } = req.body;
@@ -72,7 +91,7 @@ router.get("/search", async (req, res) => {
       ];
       return res.json(mockBooks.filter(b => b.title.toLowerCase().includes(query.toLowerCase()) || b.category.toLowerCase().includes(query.toLowerCase())));
     }
-    
+
     let booksRef = db.collection("books");
     let snapshot;
 
@@ -117,10 +136,10 @@ router.get("/digital/:bookId", async (req, res) => {
   try {
     const doc = await db.collection("books").doc(bookId).get();
     if (!doc.exists) return res.status(404).json({ message: "Book not found" });
-    
+
     const data = doc.data();
     if (!data.digitalCopyUrl) return res.status(404).json({ message: "Digital copy not available" });
-    
+
     res.json({ url: data.digitalCopyUrl });
   } catch (error) {
     res.status(500).json({ message: "Error fetching digital copy" });

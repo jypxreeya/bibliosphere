@@ -103,7 +103,7 @@
 .nexus-main {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
 }
 
@@ -111,7 +111,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 4rem;
+  padding: 0.75rem 4rem;
   background: rgba(3, 20, 39, 0.2);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--glass-border);
@@ -183,18 +183,18 @@
 
 /* Redesigned Content */
 .nexus-content {
-  padding: 4rem;
+  padding: 0.5rem 4rem;
 }
 
 .welcome-section {
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
 .welcome-text {
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 900;
   letter-spacing: -3px;
   margin: 0;
@@ -204,7 +204,7 @@
 .status-hud {
   display: flex;
   gap: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 0.75rem 1.2rem;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--glass-border);
@@ -234,12 +234,12 @@
 .dashboard-matrix {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .action-card {
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1rem;
   border-radius: 24px;
   text-align: center;
   display: flex;
@@ -259,8 +259,8 @@
 }
 
 .action-icon-box {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 18px;
   display: flex;
   align-items: center;
@@ -293,17 +293,17 @@
 .analysis-row {
   display: grid;
   grid-template-columns: 1fr 400px;
-  gap: 2.5rem;
+  gap: 1.5rem;
 }
 
 .analytics-card {
-  padding: 2.5rem;
+  padding: 1rem;
   border-radius: 28px;
 }
 
 .heatmap-container {
   margin-top: 2rem;
-  padding: 2rem;
+  padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   border: 1px solid var(--glass-border);
@@ -329,11 +329,11 @@
 .side-stack {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.2rem;
 }
 
 .stat-pill-card {
-  padding: 2rem;
+  padding: 1.2rem;
   border-radius: 24px;
   display: flex;
   align-items: center;

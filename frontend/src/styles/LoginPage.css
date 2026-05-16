@@ -38,7 +38,7 @@
 .role-select {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.2rem;
   margin-bottom: 2rem;
   color: var(--text-muted);
 }

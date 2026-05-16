@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  LayoutDashboard, 
-  Search, 
-  BookOpen, 
-  Calendar, 
-  Navigation as NavIcon, 
-  History, 
-  Bell, 
-  User, 
+import {
+  LayoutDashboard,
+  Search,
+  BookOpen,
+  Calendar,
+  Navigation as NavIcon,
+  History,
+  Bell,
+  User,
   Settings,
   Plus,
   Moon,
@@ -17,7 +17,8 @@ import {
   ChevronRight,
   Compass,
   FileText,
-  Map as MapIcon
+  Map as MapIcon,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Navigation.css";
@@ -39,13 +40,13 @@ const NavigationPage = () => {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
-    
+
     // Mocking a found book
     setTargetBook({
       title: searchTerm,
@@ -77,12 +78,16 @@ const NavigationPage = () => {
 
         <nav className="nexus-nav">
           {menuItems.map((item) => (
-            <div 
-              key={item.name} 
+            <div
+              key={item.name}
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -91,9 +96,7 @@ const NavigationPage = () => {
           ))}
         </nav>
 
-        <button className="session-btn">
-          <Compass size={18} /> Calibrate Sensors
-        </button>
+
       </aside>
 
       {/* Main Content */}
@@ -113,8 +116,8 @@ const NavigationPage = () => {
             <Moon size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>
@@ -128,12 +131,12 @@ const NavigationPage = () => {
             ) : (
               <p className="hero-subtitle">Enter a book title to generate a spatial path to its shelf.</p>
             )}
-            
+
             <form onSubmit={handleSearch} className="nav-search-box glass-card">
               <Search size={20} className="text-muted" />
-              <input 
-                type="text" 
-                placeholder="Search book to navigate..." 
+              <input
+                type="text"
+                placeholder="Search book to navigate..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -160,15 +163,15 @@ const NavigationPage = () => {
               <div className="blueprint-visual">
                 <div className="shelves-row">
                   {[...Array(5)].map((_, i) => (
-                    <motion.div 
-                      key={i} 
+                    <motion.div
+                      key={i}
                       className={`shelf-block ${targetBook && i === 1 ? 'active' : ''}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
                     >
                       {targetBook && i === 1 && (
-                        <motion.div 
+                        <motion.div
                           className="pin-container"
                           initial={{ y: -20 }}
                           animate={{ y: 0 }}
@@ -184,8 +187,8 @@ const NavigationPage = () => {
                 <AnimatePresence>
                   {showPath && (
                     <svg className="path-overlay" width="100%" height="100%">
-                      <motion.path 
-                        d="M 50 250 L 150 250 L 150 150 L 320 150" 
+                      <motion.path
+                        d="M 50 250 L 150 250 L 150 150 L 320 150"
                         fill="transparent"
                         stroke="#00f5ff"
                         strokeWidth="3"
@@ -194,9 +197,9 @@ const NavigationPage = () => {
                         animate={{ pathLength: 1 }}
                         transition={{ duration: 1.5, ease: "easeInOut" }}
                       />
-                      <motion.circle 
-                        cx="50" cy="250" r="6" 
-                        fill="#00f5ff" 
+                      <motion.circle
+                        cx="50" cy="250" r="6"
+                        fill="#00f5ff"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                       />
@@ -216,8 +219,8 @@ const NavigationPage = () => {
               <h3 className="section-title"><MapIcon size={18} /> NAVIGATION INSTRUCTIONS</h3>
               <div className="steps-list">
                 {steps.map((step, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     className={`step-item ${targetBook ? 'visible' : 'hidden'}`}
                     initial={{ opacity: 0, x: 20 }}
                     animate={targetBook ? { opacity: 1, x: 0 } : {}}

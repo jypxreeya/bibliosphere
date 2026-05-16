@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Search, 
-  BookOpen, 
-  Download, 
-  ExternalLink, 
-  Bookmark, 
-  Share2, 
-  ChevronRight, 
-  Clock, 
-  TrendingUp, 
+import {
+  Search,
+  BookOpen,
+  Download,
+  ExternalLink,
+  Bookmark,
+  Share2,
+  ChevronRight,
+  Clock,
+  TrendingUp,
   Filter,
   Maximize2,
   X,
@@ -25,7 +25,8 @@ import {
   User,
   Settings,
   Plus,
-  ArrowLeft
+  ArrowLeft,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ResearchPortal.css";
@@ -54,14 +55,14 @@ const ResearchPortal = () => {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   useEffect(() => {
     fetchRecommendations();
     const savedBookmarks = localStorage.getItem("paperBookmarks");
     if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks));
-    
+
     const savedHistory = localStorage.getItem("paperHistory");
     if (savedHistory) setHistory(JSON.parse(savedHistory));
   }, []);
@@ -122,17 +123,23 @@ const ResearchPortal = () => {
         </div>
         <nav className="nexus-nav">
           {menuItems.map((item) => (
-            <div 
-              key={item.name} 
+            <div
+              key={item.name}
               className={`nav-item ${item.path === "/research-portal" ? 'active' : ''}`}
-              onClick={() => item.path !== "#" && navigate(item.path)}
+              onClick={() => {
+                if (item.action) {
+                  item.action();
+                } else if (item.path !== "#") {
+                  navigate(item.path);
+                }
+              }}
             >
               {item.icon}
               <span className="nav-label">{item.name}</span>
             </div>
           ))}
         </nav>
-        <button className="session-btn"><Plus size={18} /> New Research Project</button>
+
       </aside>
 
       {/* Main Portal */}
@@ -148,8 +155,8 @@ const ResearchPortal = () => {
             <Bell size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>
@@ -160,19 +167,19 @@ const ResearchPortal = () => {
           <section className="research-hero glass-card">
             <h1 className="hero-title">Omni-Academic <span className="gradient-text">Search Engine</span></h1>
             <p className="hero-subtitle">Access millions of live research papers from arXiv and Semantic Scholar.</p>
-            
+
             <form onSubmit={handleSearch} className="search-box-wrapper">
               <div className="main-search glass-card">
                 <Search className="search-icon" size={22} />
-                <input 
-                  type="text" 
-                  placeholder="Enter topic, author, or keyword (e.g. Deep Learning in Healthcare)..." 
+                <input
+                  type="text"
+                  placeholder="Enter topic, author, or keyword (e.g. Deep Learning in Healthcare)..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
                 <button type="submit" className="execute-btn highlight">SEARCH ARCHIVES</button>
               </div>
-              
+
               <div className="search-filters">
                 <select className="glass-card" value={domain} onChange={(e) => setDomain(e.target.value)}>
                   <option value="">All Domains</option>
@@ -197,8 +204,8 @@ const ResearchPortal = () => {
               <div className="papers-grid">
                 <AnimatePresence>
                   {papers.map((paper, i) => (
-                    <motion.div 
-                      key={paper.id} 
+                    <motion.div
+                      key={paper.id}
                       className="paper-card glass-card"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -211,7 +218,7 @@ const ResearchPortal = () => {
                       <h3 className="paper-title">{paper.title}</h3>
                       <p className="paper-authors"><Users size={14} /> {paper.authors.join(", ")}</p>
                       <p className="paper-abstract">{paper.abstract.substring(0, 180)}...</p>
-                      
+
                       <div className="paper-footer">
                         <div className="citation-count">
                           <TrendingUp size={14} /> {paper.citations} Citations
@@ -243,7 +250,7 @@ const ResearchPortal = () => {
               <div className="side-card glass-card">
                 <h3><Star size={18} /> TRENDING TOPICS</h3>
                 <div className="topic-tags">
-                  {domains.map(d => <span key={d} className="tag" onClick={() => {setQuery(d); handleSearch();}}>{d}</span>)}
+                  {domains.map(d => <span key={d} className="tag" onClick={() => { setQuery(d); handleSearch(); }}>{d}</span>)}
                 </div>
               </div>
 
@@ -290,10 +297,10 @@ const ResearchPortal = () => {
             </header>
             <div className="viewer-body">
               {selectedPaper.pdfUrl ? (
-                <iframe 
-                  src={`${selectedPaper.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`} 
-                  width="100%" 
-                  height="100%" 
+                <iframe
+                  src={`${selectedPaper.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  width="100%"
+                  height="100%"
                   title="PDF Viewer"
                 />
               ) : (

@@ -12,6 +12,12 @@ import BorrowedBooks from "./pages/BorrowedBooks";
 import ResearchPortal from "./pages/ResearchPortal";
 import Attendance from "./pages/Attendance";
 import NavigationPage from "./pages/Navigation";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import BookManagement from "./pages/admin/BookManagement";
+import StudentManagement from "./pages/admin/StudentManagement";
+import BorrowManagement from "./pages/admin/BorrowManagement";
+import RFIDMonitoring from "./pages/admin/RFIDMonitoring";
+import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 
 function App() {
   return (
@@ -22,6 +28,14 @@ function App() {
 
         {/* 🔐 Login Page */}
         <Route path="/login" element={<LoginPage />} />
+
+        {/* 🛠️ Admin Panel */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/manage-books" element={<BookManagement />} />
+        <Route path="/admin/manage-students" element={<StudentManagement />} />
+        <Route path="/admin/borrowed-books" element={<BorrowManagement />} />
+        <Route path="/admin/rfid-monitoring" element={<RFIDMonitoring />} />
+        <Route path="/admin/analytics" element={<AnalyticsDashboard />} />
 
         {/* 🎓 Student Dashboard */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />

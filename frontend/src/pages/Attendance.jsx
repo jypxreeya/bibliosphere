@@ -17,7 +17,8 @@ import {
   XCircle,
   Clock,
   FileText,
-  TrendingUp
+  TrendingUp,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
@@ -39,7 +40,7 @@ const Attendance = () => {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   const stats = [
@@ -72,8 +73,12 @@ const Attendance = () => {
               key={item.name} 
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -81,10 +86,6 @@ const Attendance = () => {
             </div>
           ))}
         </nav>
-
-        <button className="session-btn">
-          <Plus size={18} /> Request Leave
-        </button>
       </aside>
 
       {/* Main Content */}
@@ -109,8 +110,8 @@ const Attendance = () => {
             <Moon size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>

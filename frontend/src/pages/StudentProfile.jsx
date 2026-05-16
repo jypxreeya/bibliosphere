@@ -17,7 +17,8 @@ import {
   Mail,
   Shield,
   Award,
-  FileText
+  FileText,
+  LogOut
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/StudentProfile.css";
@@ -36,7 +37,7 @@ export default function StudentProfile() {
     { name: "History", icon: <History size={20} />, path: "/borrowed-books" },
     { name: "Notifications", icon: <Bell size={20} />, path: "#" },
     { name: "Profile", icon: <User size={20} />, path: "/student-profile" },
-    { name: "Settings", icon: <Settings size={20} />, path: "#" },
+    { name: "Logout", icon: <LogOut size={20} />, path: "/", action: () => navigate("/") },
   ];
 
   return (
@@ -54,8 +55,12 @@ export default function StudentProfile() {
               key={item.name} 
               className={`nav-item ${activeTab === item.name ? 'active' : ''}`}
               onClick={() => {
-                setActiveTab(item.name);
-                if (item.path !== "#") navigate(item.path);
+                if (item.action) {
+                  item.action();
+                } else {
+                  setActiveTab(item.name);
+                  if (item.path !== "#") navigate(item.path);
+                }
               }}
             >
               {item.icon}
@@ -64,9 +69,7 @@ export default function StudentProfile() {
           ))}
         </nav>
 
-        <button className="session-btn">
-          <Plus size={18} /> Update Credentials
-        </button>
+
       </aside>
 
       {/* Main Content */}
@@ -91,8 +94,8 @@ export default function StudentProfile() {
             <Moon size={20} className="text-muted" />
             <div className="divider" />
             <div className="user-info">
-              <span className="user-name">Dr. Aris Thorne</span>
-              <span className="user-dept">Quantum Linguistics Dept.</span>
+              <span className="user-name">Jayapriya</span>
+              <span className="user-dept">M.Tech CSE 3rd Yr</span>
             </div>
             <div className="user-avatar" />
           </div>
@@ -157,7 +160,7 @@ export default function StudentProfile() {
             <div className="profile-stats-column">
               <div className="nexus-side-card glass-card">
                 <h3>Nexus Credentials</h3>
-                <p>Security clearance granted for the **Quantum Linguistics** sector. All digital archives are accessible.</p>
+                <p>Security clearance granted for the **M.Tech CSE** sector. All digital archives are accessible.</p>
               </div>
               <div className="nexus-side-card glass-card">
                 <h3>Activity Heatmap</h3>
