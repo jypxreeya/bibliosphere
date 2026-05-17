@@ -31,6 +31,15 @@ const BorrowManagement = () => {
     { id: "T-804", book: "Data Structures", student: "Kevin Vasan", borrowDate: "2026-05-12", dueDate: "2026-05-26", status: "Borrowed", fine: 0 },
   ];
 
+  const filteredTransactions = transactions.filter((txn) => {
+    return (
+      txn.book.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      txn.student.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      txn.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      txn.status.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
     <div className="admin-container">
       <AdminSidebar />
@@ -109,7 +118,7 @@ const BorrowManagement = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map((txn, i) => (
+                    {filteredTransactions.map((txn, i) => (
                         <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }} className="table-row-hover">
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 600, color: 'var(--admin-accent)' }}>{txn.id}</td>
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 700 }}>{txn.book}</td>

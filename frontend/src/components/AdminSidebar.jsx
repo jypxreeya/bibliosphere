@@ -25,8 +25,8 @@ const AdminSidebar = () => {
     { name: "Manage Students", icon: <Users size={20} />, path: "/admin/manage-students" },
     { name: "Borrowed Books", icon: <BookOpen size={20} />, path: "/admin/borrowed-books" },
     { name: "Attendance", icon: <UserCheck size={20} />, path: "/admin/attendance" },
-    { name: "Research Papers", icon: <FileText size={20} />, path: "#" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "#" },
+    { name: "Research Papers", icon: <FileText size={20} />, path: "/admin/research" },
+    { name: "Notifications", icon: <Bell size={20} />, path: "/admin/notifications" },
     { name: "Analytics", icon: <BarChart2 size={20} />, path: "/admin/analytics" },
     { name: "Digital Resources", icon: <Database size={20} />, path: "#" },
     { name: "Reports", icon: <FileText size={20} />, path: "#" },
@@ -40,7 +40,7 @@ const AdminSidebar = () => {
         <span className="brand-tagline">Admin Console v4.0</span>
       </div>
 
-      <nav className="admin-nav">
+      <nav className="admin-nav-scroll">
         {sidebarItems.map((item, index) => (
           <div 
             key={index} 
@@ -51,11 +51,14 @@ const AdminSidebar = () => {
             <span>{item.name}</span>
           </div>
         ))}
+      </nav>
+
+      <div className="admin-sidebar-footer">
         <div className="admin-nav-item logout" onClick={() => navigate("/")}>
           <LogOut size={20} />
           <span>Logout</span>
         </div>
-      </nav>
+      </div>
     </aside>
   );
 };

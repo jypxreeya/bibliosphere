@@ -18,6 +18,8 @@ import StudentManagement from "./pages/admin/StudentManagement";
 import BorrowManagement from "./pages/admin/BorrowManagement";
 import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 import AdminAttendance from "./pages/admin/AdminAttendance";
+import ResearchManagement from "./pages/admin/ResearchManagement";
+import AdminNotifications from "./pages/admin/AdminNotifications";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <Route path="/admin/borrowed-books" element={<BorrowManagement />} />
         <Route path="/admin/analytics" element={<AnalyticsDashboard />} />
         <Route path="/admin/attendance" element={<AdminAttendance />} />
+        <Route path="/admin/research" element={<ResearchManagement />} />
+        <Route path="/admin/notifications" element={<AdminNotifications />} />
 
         {/* 🎓 Student Dashboard */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />

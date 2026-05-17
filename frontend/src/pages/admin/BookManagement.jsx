@@ -40,6 +40,15 @@ const BookManagement = () => {
     { id: "B-1027", title: "Digital Fortress", author: "Dan Brown", category: "Fiction", shelf: "F-12", status: "Overdue" },
   ]);
 
+  const filteredBooks = books.filter((book) => {
+    return (
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.id.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const handleAddBook = async (e) => {
     e.preventDefault();
     try {
@@ -161,7 +170,7 @@ const BookManagement = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {books.map((book, i) => (
+                    {filteredBooks.map((book, i) => (
                         <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }} className="table-row-hover">
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 600, color: 'var(--admin-accent)' }}>{book.id}</td>
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 700 }}>{book.title}</td>

@@ -32,6 +32,14 @@ const StudentManagement = () => {
     { id: "S-504", name: "Kevin Vasan", dept: "B.Tech CSE", status: "Active", history: 15, attendance: "88%" },
   ];
 
+  const filteredStudents = students.filter((student) => {
+    return (
+      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.dept.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
     <div className="admin-container">
       <AdminSidebar />
@@ -87,7 +95,7 @@ const StudentManagement = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {students.map((student, i) => (
+                    {filteredStudents.map((student, i) => (
                         <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }} className="table-row-hover">
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 600, color: 'var(--admin-accent)' }}>{student.id}</td>
                             <td style={{ padding: '1.2rem 1.5rem', fontWeight: 700 }}>{student.name}</td>

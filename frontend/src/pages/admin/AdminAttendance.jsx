@@ -185,52 +185,6 @@ const AdminAttendance = () => {
           </div>
         </div>
 
-        {/* Charts & Interactive Section */}
-        <div className="admin-charts-grid" style={{ marginBottom: '2rem' }}>
-          <div className="chart-container" style={{ gridColumn: 'span 2' }}>
-            <div className="chart-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Sparkles size={18} color="var(--admin-accent)" />
-                <h3 style={{ margin: 0 }}>Visual Attendance Analysis Matrix</h3>
-              </div>
-              <span className="font-mono text-muted text-xs">THRESHOLD: {threshold}%</span>
-            </div>
-            <div style={{ width: '100%', height: 320 }}>
-              <ResponsiveContainer>
-                <BarChart data={students} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="name" stroke="rgba(255,255,255,0.4)" style={{ fontSize: '0.85rem' }} />
-                  <YAxis stroke="rgba(255,255,255,0.4)" domain={[0, 100]} style={{ fontSize: '0.85rem' }} />
-                  <Tooltip 
-                    contentStyle={{ background: '#030e1b', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px' }}
-                    itemStyle={{ color: 'var(--admin-accent)' }}
-                    labelStyle={{ color: '#fff', fontWeight: 700 }}
-                  />
-                  <ReferenceLine y={threshold} stroke="#ff4d4d" strokeDasharray="5 5" label={{ value: `Limit (${threshold}%)`, fill: '#ff4d4d', position: 'top' }} />
-                  <Bar dataKey="attendance" radius={[6, 6, 0, 0]}>
-                    {students.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={entry.attendance < threshold ? "url(#colorLow)" : "url(#colorNormal)"} 
-                      />
-                    ))}
-                  </Bar>
-                  <defs>
-                    <linearGradient id="colorNormal" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--admin-accent)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--admin-accent)" stopOpacity={0.1}/>
-                    </linearGradient>
-                    <linearGradient id="colorLow" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#ff4d4d" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#ff4d4d" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
         {/* Search, Filter, and Defaulters Alerts Section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem' }}>
           <div className="global-search-wrapper" style={{ width: '400px' }}>
@@ -271,7 +225,7 @@ const AdminAttendance = () => {
         </div>
 
         {/* Detailed Table */}
-        <div className="chart-container" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="chart-container" style={{ padding: 0, overflow: 'hidden', marginBottom: '2rem' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -346,6 +300,52 @@ const AdminAttendance = () => {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Charts & Interactive Section */}
+        <div className="admin-charts-grid" style={{ marginBottom: '2rem' }}>
+          <div className="chart-container" style={{ gridColumn: 'span 2' }}>
+            <div className="chart-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={18} color="var(--admin-accent)" />
+                <h3 style={{ margin: 0 }}>Visual Attendance Analysis Matrix</h3>
+              </div>
+              <span className="font-mono text-muted text-xs">THRESHOLD: {threshold}%</span>
+            </div>
+            <div style={{ width: '100%', height: 320 }}>
+              <ResponsiveContainer>
+                <BarChart data={students} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="name" stroke="rgba(255,255,255,0.4)" style={{ fontSize: '0.85rem' }} />
+                  <YAxis stroke="rgba(255,255,255,0.4)" domain={[0, 100]} style={{ fontSize: '0.85rem' }} />
+                  <Tooltip 
+                    contentStyle={{ background: '#030e1b', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px' }}
+                    itemStyle={{ color: 'var(--admin-accent)' }}
+                    labelStyle={{ color: '#fff', fontWeight: 700 }}
+                  />
+                  <ReferenceLine y={threshold} stroke="#ff4d4d" strokeDasharray="5 5" label={{ value: `Limit (${threshold}%)`, fill: '#ff4d4d', position: 'top' }} />
+                  <Bar dataKey="attendance" radius={[6, 6, 0, 0]}>
+                    {students.map((entry, index) => (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={entry.attendance < threshold ? "url(#colorLow)" : "url(#colorNormal)"} 
+                      />
+                    ))}
+                  </Bar>
+                  <defs>
+                    <linearGradient id="colorNormal" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--admin-accent)" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="var(--admin-accent)" stopOpacity={0.1}/>
+                    </linearGradient>
+                    <linearGradient id="colorLow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#ff4d4d" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#ff4d4d" stopOpacity={0.1}/>
+                    </linearGradient>
+                  </defs>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </main>
 
