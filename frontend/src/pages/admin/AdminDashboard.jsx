@@ -84,7 +84,7 @@ const AdminDashboard = () => {
     { user: "Jayapriya", action: "borrowed 'Quantum Computing'", time: "2 mins ago" },
     { user: "Admin", action: "added 12 new volumes to CS section", time: "15 mins ago" },
     { user: "Rahul S.", action: "returned 'Advanced Algorithms'", time: "45 mins ago" },
-    { user: "RFID System", action: "detected unauthorized move: B-104", time: "1 hour ago" },
+    { user: "Security Gateway", action: "detected checkout mismatch: Book B-104", time: "1 hour ago" },
   ];
 
   return (

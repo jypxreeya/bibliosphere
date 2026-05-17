@@ -28,9 +28,9 @@ export default function LandingPage() {
     },
     {
       icon: <Users size={32} />,
-      title: "RFID Security",
+      title: "Smart Gate Security",
       description:
-        "Advanced RFID-based tracking and security system to prevent unauthorized removal and automate logs.",
+        "Advanced intelligent tracking and access gates to prevent unauthorized resource removal and automate checkout logs.",
     },
     {
       icon: <Calendar size={32} />,

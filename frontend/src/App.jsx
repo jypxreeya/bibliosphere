@@ -16,8 +16,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import BookManagement from "./pages/admin/BookManagement";
 import StudentManagement from "./pages/admin/StudentManagement";
 import BorrowManagement from "./pages/admin/BorrowManagement";
-import RFIDMonitoring from "./pages/admin/RFIDMonitoring";
 import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
+import AdminAttendance from "./pages/admin/AdminAttendance";
 
 function App() {
   return (
@@ -34,8 +34,8 @@ function App() {
         <Route path="/admin/manage-books" element={<BookManagement />} />
         <Route path="/admin/manage-students" element={<StudentManagement />} />
         <Route path="/admin/borrowed-books" element={<BorrowManagement />} />
-        <Route path="/admin/rfid-monitoring" element={<RFIDMonitoring />} />
         <Route path="/admin/analytics" element={<AnalyticsDashboard />} />
+        <Route path="/admin/attendance" element={<AdminAttendance />} />
 
         {/* 🎓 Student Dashboard */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
